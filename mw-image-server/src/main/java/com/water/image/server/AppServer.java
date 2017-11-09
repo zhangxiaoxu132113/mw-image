@@ -1,7 +1,7 @@
 package com.water.image.server;
 
-import com.water.image.service.FileService;
-import com.water.image.service.impl.FileServiceImpl;
+import com.water.image.client.service.FileService;
+import com.water.image.server.service.impl.FileServiceImpl;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TServer;

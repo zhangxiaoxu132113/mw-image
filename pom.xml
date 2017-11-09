@@ -6,7 +6,12 @@
 
     <groupId>com.water</groupId>
     <artifactId>mw-image</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>mw-image-client</module>
+        <module>mw-image-server</module>
+    </modules>
 
     <dependencies>
         <dependency>

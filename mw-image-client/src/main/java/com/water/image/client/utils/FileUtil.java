@@ -1,6 +1,7 @@
-package com.water.image;
+package com.water.image.client.utils;
 
-import com.water.image.model.FileData;
+
+import com.water.image.client.model.FileData;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,7 +36,6 @@ public class FileUtil {
     public static void main(String[] args) {
         generateFileData(null, "E:\\dayin.html");
     }
-
 
     /**
      * 判断客户端上传路径是否合法
@@ -75,7 +75,6 @@ public class FileUtil {
                 }
             }
         }
-
         return null;
     }
 }

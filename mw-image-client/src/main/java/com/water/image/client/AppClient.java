@@ -1,8 +1,8 @@
 package com.water.image.client;
 
-import com.water.image.FileUtil;
-import com.water.image.model.FileData;
-import com.water.image.service.FileService;
+import com.water.image.client.model.FileData;
+import com.water.image.client.service.FileService;
+import com.water.image.client.utils.FileUtil;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
