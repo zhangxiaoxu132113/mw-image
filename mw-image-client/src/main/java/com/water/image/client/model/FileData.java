@@ -11,22 +11,22 @@ package com.water.image.client.model;
 public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fields>, java.io.Serializable, Cloneable, Comparable<FileData> {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("FileData");
 
-  private static final org.apache.thrift.protocol.TField FILENAME_FIELD_DESC = new org.apache.thrift.protocol.TField("filename", org.apache.thrift.protocol.TType.STRING, (short)1);
-  private static final org.apache.thrift.protocol.TField FILEPATH_FIELD_DESC = new org.apache.thrift.protocol.TField("filepath", org.apache.thrift.protocol.TType.STRING, (short)2);
-  private static final org.apache.thrift.protocol.TField BUFF_FIELD_DESC = new org.apache.thrift.protocol.TField("buff", org.apache.thrift.protocol.TType.STRING, (short)3);
+  private static final org.apache.thrift.protocol.TField SUFFIX_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("suffixName", org.apache.thrift.protocol.TType.STRING, (short)1);
+  private static final org.apache.thrift.protocol.TField FILE_PATH_FIELD_DESC = new org.apache.thrift.protocol.TField("filePath", org.apache.thrift.protocol.TType.STRING, (short)2);
+  private static final org.apache.thrift.protocol.TField FILE_BUFF_FIELD_DESC = new org.apache.thrift.protocol.TField("fileBuff", org.apache.thrift.protocol.TType.STRING, (short)3);
 
   private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new FileDataStandardSchemeFactory();
   private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new FileDataTupleSchemeFactory();
 
-  public String filename; // required
-  public String filepath; // required
-  public java.nio.ByteBuffer buff; // required
+  public String suffixName; // required
+  public String filePath; // required
+  public java.nio.ByteBuffer fileBuff; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-    FILENAME((short)1, "filename"),
-    FILEPATH((short)2, "filepath"),
-    BUFF((short)3, "buff");
+    SUFFIX_NAME((short)1, "suffixName"),
+    FILE_PATH((short)2, "filePath"),
+    FILE_BUFF((short)3, "fileBuff");
 
     private static final java.util.Map<String, _Fields> byName = new java.util.HashMap<String, _Fields>();
 
@@ -41,12 +41,12 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
      */
     public static _Fields findByThriftId(int fieldId) {
       switch(fieldId) {
-        case 1: // FILENAME
-          return FILENAME;
-        case 2: // FILEPATH
-          return FILEPATH;
-        case 3: // BUFF
-          return BUFF;
+        case 1: // SUFFIX_NAME
+          return SUFFIX_NAME;
+        case 2: // FILE_PATH
+          return FILE_PATH;
+        case 3: // FILE_BUFF
+          return FILE_BUFF;
         default:
           return null;
       }
@@ -90,11 +90,11 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
   public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.FILENAME, new org.apache.thrift.meta_data.FieldMetaData("filename", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+    tmpMap.put(_Fields.SUFFIX_NAME, new org.apache.thrift.meta_data.FieldMetaData("suffixName", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-    tmpMap.put(_Fields.FILEPATH, new org.apache.thrift.meta_data.FieldMetaData("filepath", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+    tmpMap.put(_Fields.FILE_PATH, new org.apache.thrift.meta_data.FieldMetaData("filePath", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-    tmpMap.put(_Fields.BUFF, new org.apache.thrift.meta_data.FieldMetaData("buff", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+    tmpMap.put(_Fields.FILE_BUFF, new org.apache.thrift.meta_data.FieldMetaData("fileBuff", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING        , true)));
     metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(FileData.class, metaDataMap);
@@ -104,28 +104,28 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
   }
 
   public FileData(
-    String filename,
-    String filepath,
-    java.nio.ByteBuffer buff)
+    String suffixName,
+    String filePath,
+    java.nio.ByteBuffer fileBuff)
   {
     this();
-    this.filename = filename;
-    this.filepath = filepath;
-    this.buff = org.apache.thrift.TBaseHelper.copyBinary(buff);
+    this.suffixName = suffixName;
+    this.filePath = filePath;
+    this.fileBuff = org.apache.thrift.TBaseHelper.copyBinary(fileBuff);
   }
 
   /**
    * Performs a deep copy on <i>other</i>.
    */
   public FileData(FileData other) {
-    if (other.isSetFilename()) {
-      this.filename = other.filename;
+    if (other.isSetSuffixName()) {
+      this.suffixName = other.suffixName;
     }
-    if (other.isSetFilepath()) {
-      this.filepath = other.filepath;
+    if (other.isSetFilePath()) {
+      this.filePath = other.filePath;
     }
-    if (other.isSetBuff()) {
-      this.buff = org.apache.thrift.TBaseHelper.copyBinary(other.buff);
+    if (other.isSetFileBuff()) {
+      this.fileBuff = org.apache.thrift.TBaseHelper.copyBinary(other.fileBuff);
     }
   }
 
@@ -135,119 +135,119 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
 
   @Override
   public void clear() {
-    this.filename = null;
-    this.filepath = null;
-    this.buff = null;
+    this.suffixName = null;
+    this.filePath = null;
+    this.fileBuff = null;
   }
 
-  public String getFilename() {
-    return this.filename;
+  public String getSuffixName() {
+    return this.suffixName;
   }
 
-  public FileData setFilename(String filename) {
-    this.filename = filename;
+  public FileData setSuffixName(String suffixName) {
+    this.suffixName = suffixName;
     return this;
   }
 
-  public void unsetFilename() {
-    this.filename = null;
+  public void unsetSuffixName() {
+    this.suffixName = null;
   }
 
-  /** Returns true if field filename is set (has been assigned a value) and false otherwise */
-  public boolean isSetFilename() {
-    return this.filename != null;
+  /** Returns true if field suffixName is set (has been assigned a value) and false otherwise */
+  public boolean isSetSuffixName() {
+    return this.suffixName != null;
   }
 
-  public void setFilenameIsSet(boolean value) {
+  public void setSuffixNameIsSet(boolean value) {
     if (!value) {
-      this.filename = null;
+      this.suffixName = null;
     }
   }
 
-  public String getFilepath() {
-    return this.filepath;
+  public String getFilePath() {
+    return this.filePath;
   }
 
-  public FileData setFilepath(String filepath) {
-    this.filepath = filepath;
+  public FileData setFilePath(String filePath) {
+    this.filePath = filePath;
     return this;
   }
 
-  public void unsetFilepath() {
-    this.filepath = null;
+  public void unsetFilePath() {
+    this.filePath = null;
   }
 
-  /** Returns true if field filepath is set (has been assigned a value) and false otherwise */
-  public boolean isSetFilepath() {
-    return this.filepath != null;
+  /** Returns true if field filePath is set (has been assigned a value) and false otherwise */
+  public boolean isSetFilePath() {
+    return this.filePath != null;
   }
 
-  public void setFilepathIsSet(boolean value) {
+  public void setFilePathIsSet(boolean value) {
     if (!value) {
-      this.filepath = null;
+      this.filePath = null;
     }
   }
 
-  public byte[] getBuff() {
-    setBuff(org.apache.thrift.TBaseHelper.rightSize(buff));
-    return buff == null ? null : buff.array();
+  public byte[] getFileBuff() {
+    setFileBuff(org.apache.thrift.TBaseHelper.rightSize(fileBuff));
+    return fileBuff == null ? null : fileBuff.array();
   }
 
-  public java.nio.ByteBuffer bufferForBuff() {
-    return org.apache.thrift.TBaseHelper.copyBinary(buff);
+  public java.nio.ByteBuffer bufferForFileBuff() {
+    return org.apache.thrift.TBaseHelper.copyBinary(fileBuff);
   }
 
-  public FileData setBuff(byte[] buff) {
-    this.buff = buff == null ? (java.nio.ByteBuffer)null : java.nio.ByteBuffer.wrap(buff.clone());
+  public FileData setFileBuff(byte[] fileBuff) {
+    this.fileBuff = fileBuff == null ? (java.nio.ByteBuffer)null : java.nio.ByteBuffer.wrap(fileBuff.clone());
     return this;
   }
 
-  public FileData setBuff(java.nio.ByteBuffer buff) {
-    this.buff = org.apache.thrift.TBaseHelper.copyBinary(buff);
+  public FileData setFileBuff(java.nio.ByteBuffer fileBuff) {
+    this.fileBuff = org.apache.thrift.TBaseHelper.copyBinary(fileBuff);
     return this;
   }
 
-  public void unsetBuff() {
-    this.buff = null;
+  public void unsetFileBuff() {
+    this.fileBuff = null;
   }
 
-  /** Returns true if field buff is set (has been assigned a value) and false otherwise */
-  public boolean isSetBuff() {
-    return this.buff != null;
+  /** Returns true if field fileBuff is set (has been assigned a value) and false otherwise */
+  public boolean isSetFileBuff() {
+    return this.fileBuff != null;
   }
 
-  public void setBuffIsSet(boolean value) {
+  public void setFileBuffIsSet(boolean value) {
     if (!value) {
-      this.buff = null;
+      this.fileBuff = null;
     }
   }
 
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
-    case FILENAME:
+    case SUFFIX_NAME:
       if (value == null) {
-        unsetFilename();
+        unsetSuffixName();
       } else {
-        setFilename((String)value);
+        setSuffixName((String)value);
       }
       break;
 
-    case FILEPATH:
+    case FILE_PATH:
       if (value == null) {
-        unsetFilepath();
+        unsetFilePath();
       } else {
-        setFilepath((String)value);
+        setFilePath((String)value);
       }
       break;
 
-    case BUFF:
+    case FILE_BUFF:
       if (value == null) {
-        unsetBuff();
+        unsetFileBuff();
       } else {
         if (value instanceof byte[]) {
-          setBuff((byte[])value);
+          setFileBuff((byte[])value);
         } else {
-          setBuff((java.nio.ByteBuffer)value);
+          setFileBuff((java.nio.ByteBuffer)value);
         }
       }
       break;
@@ -257,14 +257,14 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
 
   public Object getFieldValue(_Fields field) {
     switch (field) {
-    case FILENAME:
-      return getFilename();
+    case SUFFIX_NAME:
+      return getSuffixName();
 
-    case FILEPATH:
-      return getFilepath();
+    case FILE_PATH:
+      return getFilePath();
 
-    case BUFF:
-      return getBuff();
+    case FILE_BUFF:
+      return getFileBuff();
 
     }
     throw new IllegalStateException();
@@ -277,12 +277,12 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
     }
 
     switch (field) {
-    case FILENAME:
-      return isSetFilename();
-    case FILEPATH:
-      return isSetFilepath();
-    case BUFF:
-      return isSetBuff();
+    case SUFFIX_NAME:
+      return isSetSuffixName();
+    case FILE_PATH:
+      return isSetFilePath();
+    case FILE_BUFF:
+      return isSetFileBuff();
     }
     throw new IllegalStateException();
   }
@@ -302,30 +302,30 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
     if (this == that)
       return true;
 
-    boolean this_present_filename = true && this.isSetFilename();
-    boolean that_present_filename = true && that.isSetFilename();
-    if (this_present_filename || that_present_filename) {
-      if (!(this_present_filename && that_present_filename))
+    boolean this_present_suffixName = true && this.isSetSuffixName();
+    boolean that_present_suffixName = true && that.isSetSuffixName();
+    if (this_present_suffixName || that_present_suffixName) {
+      if (!(this_present_suffixName && that_present_suffixName))
         return false;
-      if (!this.filename.equals(that.filename))
-        return false;
-    }
-
-    boolean this_present_filepath = true && this.isSetFilepath();
-    boolean that_present_filepath = true && that.isSetFilepath();
-    if (this_present_filepath || that_present_filepath) {
-      if (!(this_present_filepath && that_present_filepath))
-        return false;
-      if (!this.filepath.equals(that.filepath))
+      if (!this.suffixName.equals(that.suffixName))
         return false;
     }
 
-    boolean this_present_buff = true && this.isSetBuff();
-    boolean that_present_buff = true && that.isSetBuff();
-    if (this_present_buff || that_present_buff) {
-      if (!(this_present_buff && that_present_buff))
+    boolean this_present_filePath = true && this.isSetFilePath();
+    boolean that_present_filePath = true && that.isSetFilePath();
+    if (this_present_filePath || that_present_filePath) {
+      if (!(this_present_filePath && that_present_filePath))
         return false;
-      if (!this.buff.equals(that.buff))
+      if (!this.filePath.equals(that.filePath))
+        return false;
+    }
+
+    boolean this_present_fileBuff = true && this.isSetFileBuff();
+    boolean that_present_fileBuff = true && that.isSetFileBuff();
+    if (this_present_fileBuff || that_present_fileBuff) {
+      if (!(this_present_fileBuff && that_present_fileBuff))
+        return false;
+      if (!this.fileBuff.equals(that.fileBuff))
         return false;
     }
 
@@ -336,17 +336,17 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
   public int hashCode() {
     int hashCode = 1;
 
-    hashCode = hashCode * 8191 + ((isSetFilename()) ? 131071 : 524287);
-    if (isSetFilename())
-      hashCode = hashCode * 8191 + filename.hashCode();
+    hashCode = hashCode * 8191 + ((isSetSuffixName()) ? 131071 : 524287);
+    if (isSetSuffixName())
+      hashCode = hashCode * 8191 + suffixName.hashCode();
 
-    hashCode = hashCode * 8191 + ((isSetFilepath()) ? 131071 : 524287);
-    if (isSetFilepath())
-      hashCode = hashCode * 8191 + filepath.hashCode();
+    hashCode = hashCode * 8191 + ((isSetFilePath()) ? 131071 : 524287);
+    if (isSetFilePath())
+      hashCode = hashCode * 8191 + filePath.hashCode();
 
-    hashCode = hashCode * 8191 + ((isSetBuff()) ? 131071 : 524287);
-    if (isSetBuff())
-      hashCode = hashCode * 8191 + buff.hashCode();
+    hashCode = hashCode * 8191 + ((isSetFileBuff()) ? 131071 : 524287);
+    if (isSetFileBuff())
+      hashCode = hashCode * 8191 + fileBuff.hashCode();
 
     return hashCode;
   }
@@ -359,32 +359,32 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
 
     int lastComparison = 0;
 
-    lastComparison = Boolean.valueOf(isSetFilename()).compareTo(other.isSetFilename());
+    lastComparison = Boolean.valueOf(isSetSuffixName()).compareTo(other.isSetSuffixName());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetFilename()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.filename, other.filename);
+    if (isSetSuffixName()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.suffixName, other.suffixName);
       if (lastComparison != 0) {
         return lastComparison;
       }
     }
-    lastComparison = Boolean.valueOf(isSetFilepath()).compareTo(other.isSetFilepath());
+    lastComparison = Boolean.valueOf(isSetFilePath()).compareTo(other.isSetFilePath());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetFilepath()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.filepath, other.filepath);
+    if (isSetFilePath()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.filePath, other.filePath);
       if (lastComparison != 0) {
         return lastComparison;
       }
     }
-    lastComparison = Boolean.valueOf(isSetBuff()).compareTo(other.isSetBuff());
+    lastComparison = Boolean.valueOf(isSetFileBuff()).compareTo(other.isSetFileBuff());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetBuff()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.buff, other.buff);
+    if (isSetFileBuff()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.fileBuff, other.fileBuff);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -409,27 +409,27 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
     StringBuilder sb = new StringBuilder("FileData(");
     boolean first = true;
 
-    sb.append("filename:");
-    if (this.filename == null) {
+    sb.append("suffixName:");
+    if (this.suffixName == null) {
       sb.append("null");
     } else {
-      sb.append(this.filename);
+      sb.append(this.suffixName);
     }
     first = false;
     if (!first) sb.append(", ");
-    sb.append("filepath:");
-    if (this.filepath == null) {
+    sb.append("filePath:");
+    if (this.filePath == null) {
       sb.append("null");
     } else {
-      sb.append(this.filepath);
+      sb.append(this.filePath);
     }
     first = false;
     if (!first) sb.append(", ");
-    sb.append("buff:");
-    if (this.buff == null) {
+    sb.append("fileBuff:");
+    if (this.fileBuff == null) {
       sb.append("null");
     } else {
-      org.apache.thrift.TBaseHelper.toString(this.buff, sb);
+      org.apache.thrift.TBaseHelper.toString(this.fileBuff, sb);
     }
     first = false;
     sb.append(")");
@@ -438,14 +438,14 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
 
   public void validate() throws org.apache.thrift.TException {
     // check for required fields
-    if (filename == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'filename' was not present! Struct: " + toString());
+    if (suffixName == null) {
+      throw new org.apache.thrift.protocol.TProtocolException("Required field 'suffixName' was not present! Struct: " + toString());
     }
-    if (filepath == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'filepath' was not present! Struct: " + toString());
+    if (filePath == null) {
+      throw new org.apache.thrift.protocol.TProtocolException("Required field 'filePath' was not present! Struct: " + toString());
     }
-    if (buff == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'buff' was not present! Struct: " + toString());
+    if (fileBuff == null) {
+      throw new org.apache.thrift.protocol.TProtocolException("Required field 'fileBuff' was not present! Struct: " + toString());
     }
     // check for sub-struct validity
   }
@@ -484,26 +484,26 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
           break;
         }
         switch (schemeField.id) {
-          case 1: // FILENAME
+          case 1: // SUFFIX_NAME
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.filename = iprot.readString();
-              struct.setFilenameIsSet(true);
+              struct.suffixName = iprot.readString();
+              struct.setSuffixNameIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 2: // FILEPATH
+          case 2: // FILE_PATH
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.filepath = iprot.readString();
-              struct.setFilepathIsSet(true);
+              struct.filePath = iprot.readString();
+              struct.setFilePathIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 3: // BUFF
+          case 3: // FILE_BUFF
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.buff = iprot.readBinary();
-              struct.setBuffIsSet(true);
+              struct.fileBuff = iprot.readBinary();
+              struct.setFileBuffIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
@@ -523,19 +523,19 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
-      if (struct.filename != null) {
-        oprot.writeFieldBegin(FILENAME_FIELD_DESC);
-        oprot.writeString(struct.filename);
+      if (struct.suffixName != null) {
+        oprot.writeFieldBegin(SUFFIX_NAME_FIELD_DESC);
+        oprot.writeString(struct.suffixName);
         oprot.writeFieldEnd();
       }
-      if (struct.filepath != null) {
-        oprot.writeFieldBegin(FILEPATH_FIELD_DESC);
-        oprot.writeString(struct.filepath);
+      if (struct.filePath != null) {
+        oprot.writeFieldBegin(FILE_PATH_FIELD_DESC);
+        oprot.writeString(struct.filePath);
         oprot.writeFieldEnd();
       }
-      if (struct.buff != null) {
-        oprot.writeFieldBegin(BUFF_FIELD_DESC);
-        oprot.writeBinary(struct.buff);
+      if (struct.fileBuff != null) {
+        oprot.writeFieldBegin(FILE_BUFF_FIELD_DESC);
+        oprot.writeBinary(struct.fileBuff);
         oprot.writeFieldEnd();
       }
       oprot.writeFieldStop();
@@ -555,20 +555,20 @@ public class FileData implements org.apache.thrift.TBase<FileData, FileData._Fie
     @Override
     public void write(org.apache.thrift.protocol.TProtocol prot, FileData struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
-      oprot.writeString(struct.filename);
-      oprot.writeString(struct.filepath);
-      oprot.writeBinary(struct.buff);
+      oprot.writeString(struct.suffixName);
+      oprot.writeString(struct.filePath);
+      oprot.writeBinary(struct.fileBuff);
     }
 
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, FileData struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
-      struct.filename = iprot.readString();
-      struct.setFilenameIsSet(true);
-      struct.filepath = iprot.readString();
-      struct.setFilepathIsSet(true);
-      struct.buff = iprot.readBinary();
-      struct.setBuffIsSet(true);
+      struct.suffixName = iprot.readString();
+      struct.setSuffixNameIsSet(true);
+      struct.filePath = iprot.readString();
+      struct.setFilePathIsSet(true);
+      struct.fileBuff = iprot.readBinary();
+      struct.setFileBuffIsSet(true);
     }
   }
 

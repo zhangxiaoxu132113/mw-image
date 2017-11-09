@@ -1,6 +1,5 @@
 package com.water.image.client.service;
 
-
 import com.water.image.client.model.FileData;
 
 /**

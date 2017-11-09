@@ -19,8 +19,8 @@ public class FileServiceImpl implements FileService.Iface {
     @Override
     public String uploadFile(FileData filedata) throws TException {
         logger.info("uploadFile function has been called.");
-        this.checkFileData(filedata);
-        return FileUtil.saveFile2Local(filedata.filepath, filedata.buff);
+//        this.checkFileData(filedata);
+        return FileUtil.saveFile2Local(filedata);
     }
 
     /**
@@ -32,7 +32,7 @@ public class FileServiceImpl implements FileService.Iface {
         if (fileData == null) {
             throw new RuntimeException("文件对象不能为空！");
         }
-        filePath = fileData.filepath;
+        filePath = fileData.filePath;
         if (!FileUtil.isLegalPath(filePath)) {
             throw new RuntimeException("文件服务器上传地址不合法法");
         }

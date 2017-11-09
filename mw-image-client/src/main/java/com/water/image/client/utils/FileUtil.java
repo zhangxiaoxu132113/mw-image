@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.UUID;
 
 /**
  * Created by admin on 2017/11/9.
@@ -22,20 +23,17 @@ public class FileUtil {
      * @param filePath
      * @return
      */
-    public static FileData generateFileData(byte[] bytes, String filePath) {
-        String strs[] = filePath.split("\\\\");
+    public static FileData generateFileData(byte[] bytes, String filePath, String remoteFilePath) {
         FileData fileData = new FileData();
-        fileData.filename = strs[strs.length - 1];
-        System.out.println(fileData.filename);
-        fileData.filepath = filePath;
-        fileData.buff = ByteBuffer.wrap(bytes);
-
+        fileData.suffixName = filePath.substring(filePath.lastIndexOf(".") + 1);
+        fileData.filePath = remoteFilePath;
+        fileData.fileBuff = ByteBuffer.wrap(bytes);
         return fileData;
     }
 
-    public static void main(String[] args) {
-        generateFileData(null, "E:\\dayin.html");
-    }
+//    public static void main(String[] args) {
+//        generateFileData(null, "E:\\dayin.html");
+//    }
 
     /**
      * 判断客户端上传路径是否合法
@@ -53,17 +51,19 @@ public class FileUtil {
     /**
      * 核心方法，将文件保存到本地 - [暂时，这里的处理是阻塞]
      *
-     * @param filePath 文件的路径
-     * @param buff     字节数组
      */
-    public static String saveFile2Local(String filePath, ByteBuffer buff) {
+    public static String saveFile2Local(FileData fileData) {
         FileOutputStream fos;
         FileChannel channel = null;
+        String suffixName = fileData.getSuffixName();
+        String fileName = UUID.randomUUID().toString();
+        String filePath = fileData.getFilePath() + fileName + "." + suffixName;
         try {
             File file = new File(filePath);
             fos = new FileOutputStream(file);
             channel = fos.getChannel();
-            channel.write(buff);
+            channel.write(fileData.fileBuff);
+            return filePath;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

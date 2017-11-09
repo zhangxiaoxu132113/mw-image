@@ -9,7 +9,8 @@ import org.apache.thrift.server.TThreadedSelectorServer;
 import org.apache.thrift.transport.*;
 
 /**
- * Created by admin on 2017/11/9.
+ *
+ * Created by zhang miaojie on 2017/11/9.
  */
 public class AppServer {
     public static void main(String[] args) throws TTransportException {

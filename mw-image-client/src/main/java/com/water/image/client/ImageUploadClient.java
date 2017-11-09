@@ -1,8 +1,8 @@
 package com.water.image.client;
 
-import com.water.image.FileUtil;
-import com.water.image.model.FileData;
-import com.water.image.service.FileService;
+import com.water.image.client.model.FileData;
+import com.water.image.client.service.FileService;
+import com.water.image.client.utils.FileUtil;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
 /**
@@ -19,7 +19,7 @@ public class ImageUploadClient extends AppClient {
      */
     public static String uploadImageWithFilePath(String localFilePath, String remoteFilePath) {
         try {
-            FileData fileData = FileUtil.generateFileData(toByteArray(localFilePath), remoteFilePath);// 构造文件数据
+            FileData fileData = FileUtil.generateFileData(toByteArray(localFilePath), localFilePath, remoteFilePath);// 构造文件数据
             TBinaryProtocol binaryProtocol = getTBinaryProtocol();
             FileService.Client client = new FileService.Client(binaryProtocol);
             return client.uploadFile(fileData);

@@ -26,18 +26,6 @@ public class AppClient {
         SOCKET_TIME_OUT = 60 * 1000;
     }
 
-    public static void main(String[] args) {
-        String filePath = "E:\\dayin.html";
-        FileData fileData = FileUtil.generateFileData(toByteArray(filePath), filePath);// 构造文件数据
-        try {
-            TBinaryProtocol binaryProtocol = getTBinaryProtocol();
-            FileService.Client client = new FileService.Client(binaryProtocol);
-            client.uploadFile(fileData);
-        } catch (Exception x) {
-            x.printStackTrace();
-        }
-    }
-
     protected static TBinaryProtocol getTBinaryProtocol() {
         TSocket socket = null;
         TFramedTransport framedTransport = null;

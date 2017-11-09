@@ -1,9 +1,9 @@
 // -------------------------------------------------------------------- File
 struct FileData
 {
-    1:required string   filename,                   // 文件名字
-    2:required string   filepath,                   // 文件上传路径
-    3:required binary   buff,                       // 文件数据
+    1:required string   suffixName,                   // 文件名字
+    2:required string   filePath,                   // 文件上传路径
+    3:required binary   fileBuff,                       // 文件数据
 }
 
 // -------------------------------------------------------------------- Service
