@@ -65,6 +65,4 @@ public class ImageUploadClient extends AppClient {
         FileService.Client client = new FileService.Client(binaryProtocol);
         return client.uploadFile(fileData);
     }
-
-
 }
