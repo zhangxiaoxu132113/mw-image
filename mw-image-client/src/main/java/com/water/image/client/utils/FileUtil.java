@@ -11,10 +11,10 @@ import java.nio.channels.FileChannel;
 import java.util.UUID;
 
 /**
- * Created by admin on 2017/11/9.
+ * Created by zhang miaojie on 2017/11/9.
  */
 public class FileUtil {
-    public final static String UPLOAD_FILE_PATH = "/upload/%s";
+    public final static String UPLOAD_FILE_PATH = "\\upload\\%s";
 
     /**
      * 创建文件传输对象
@@ -31,10 +31,6 @@ public class FileUtil {
         return fileData;
     }
 
-//    public static void main(String[] args) {
-//        generateFileData(null, "E:\\dayin.html");
-//    }
-
     /**
      * 判断客户端上传路径是否合法
      *
@@ -46,35 +42,5 @@ public class FileUtil {
             return true;
         }
         return false;
-    }
-
-    /**
-     * 核心方法，将文件保存到本地 - [暂时，这里的处理是阻塞]
-     *
-     */
-    public static String saveFile2Local(FileData fileData) {
-        FileOutputStream fos;
-        FileChannel channel = null;
-        String suffixName = fileData.getSuffixName();
-        String fileName = UUID.randomUUID().toString();
-        String filePath = fileData.getFilePath() + fileName + "." + suffixName;
-        try {
-            File file = new File(filePath);
-            fos = new FileOutputStream(file);
-            channel = fos.getChannel();
-            channel.write(fileData.fileBuff);
-            return filePath;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (channel != null) {
-                try {
-                    channel.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
     }
 }
