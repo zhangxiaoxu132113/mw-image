@@ -14,7 +14,7 @@ import java.util.UUID;
  * Created by zhang miaojie on 2017/11/9.
  */
 public class FileUtil {
-    public final static String UPLOAD_FILE_PATH = "\\upload\\%s";
+    public final static String UPLOAD_FILE_PATH = "/upload/";
 
     /**
      * 创建文件传输对象

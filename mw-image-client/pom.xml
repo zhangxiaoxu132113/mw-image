@@ -10,6 +10,60 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mw-image-client</artifactId>
-
-
+    <profiles>
+        <profile>
+            <id>dev-mac</id>
+            <properties>
+                <active.profile>dev-mac</active.profile>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev-window</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <active.profile>dev-window</active.profile>
+            </properties>
+        </profile>
+        <profile>
+            <id>product</id>
+            <properties>
+                <active.profile>product</active.profile>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <filters>
+            <filter>../config_filters/config-${active.profile}.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>water-image-client</finalName>
+    </build>
 </project>

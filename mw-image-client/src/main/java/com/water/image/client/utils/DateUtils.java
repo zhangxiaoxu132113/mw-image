@@ -13,7 +13,6 @@ public class DateUtils {
     public static SimpleDateFormat DATE_FORMAT_Y = new SimpleDateFormat("yyyy");
     public static SimpleDateFormat DATE_FORMAT_MD = new SimpleDateFormat("MM-dd");
     public static SimpleDateFormat DATE_FORMAT_YMD = new SimpleDateFormat("yyyy-MM-dd");
-    public static SimpleDateFormat DATE_FORMAT_YMD_2 = new SimpleDateFormat("yyyyMMdd");
     public static SimpleDateFormat DATE_FORMAT_YMD_WITHOUT_SEPARATOR = new SimpleDateFormat("yyyyMMdd");
     public static SimpleDateFormat DATE_FORMAT_YMD_ = new SimpleDateFormat("yyyy_MM_dd");
     public static SimpleDateFormat DATE_FORMAT_YMDHM = new SimpleDateFormat("yyyy-MM-dd HH:mm");

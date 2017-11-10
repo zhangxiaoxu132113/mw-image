@@ -1,5 +1,6 @@
 package com.water.image.client;
 
+import com.water.image.client.utils.Constant;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
@@ -14,23 +15,14 @@ import java.io.IOException;
  * Created by zhang miaojie on 2017/11/9.
  */
 public class AppClient {
-    private static String SERVER_IP;
-    private static Integer SERVER_PORT;
-    private static Integer SOCKET_TIME_OUT;
-
-    static {
-        SERVER_IP = "localhost";
-        SERVER_PORT = 12345;
-        SOCKET_TIME_OUT = 60 * 1000;
-    }
 
     protected static TBinaryProtocol getTBinaryProtocol() {
         TSocket socket = null;
         TFramedTransport framedTransport = null;
         TBinaryProtocol binaryProtocol = null;
         try {
-            socket = new TSocket(SERVER_IP, SERVER_PORT);// 构造Thrift客户端，发起请求
-            socket.setSocketTimeout(SOCKET_TIME_OUT);
+            socket = new TSocket(Constant.SERVER_IP, Constant.SERVER_PORT);// 构造Thrift客户端，发起请求
+            socket.setSocketTimeout(Constant.SOCKET_TIMEOUT);
             framedTransport = new TFramedTransport(socket);
             framedTransport.open();
             binaryProtocol = new TBinaryProtocol(framedTransport);

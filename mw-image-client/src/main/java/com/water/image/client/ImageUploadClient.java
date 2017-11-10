@@ -2,13 +2,12 @@ package com.water.image.client;
 
 import com.water.image.client.model.FileData;
 import com.water.image.client.service.FileService;
+import com.water.image.client.utils.DateUtils;
 import com.water.image.client.utils.FileUtil;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
 import java.util.Date;
-
-import static com.water.image.client.utils.DateUtils.DATE_FORMAT_YMD_2;
 
 /**
  * 文件上传客户端
@@ -19,7 +18,7 @@ public class ImageUploadClient extends AppClient {
     /**
      * 默认上传文件路径
      */
-    private static final String DEFAULT_UPLOAD_FILE_PATH = String.format(FileUtil.UPLOAD_FILE_PATH, DATE_FORMAT_YMD_2.format(new Date()));
+    private static final String DEFAULT_UPLOAD_FILE_PATH = FileUtil.UPLOAD_FILE_PATH + DateUtils.DATE_FORMAT_YMD_WITHOUT_SEPARATOR.format(new Date());
 
     public static String uploadImageWithFilePath(String localFilePath) {
         return uploadImageWithFilePath(localFilePath, DEFAULT_UPLOAD_FILE_PATH);

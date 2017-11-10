@@ -3,6 +3,7 @@ package com.water.image.server.service.impl;
 
 import com.water.image.client.model.FileData;
 import com.water.image.client.service.FileService;
+import com.water.image.client.utils.Constant;
 import com.water.image.client.utils.FileUtil;
 import com.water.image.server.utils.Constants;
 import org.apache.thrift.TException;
@@ -24,24 +25,21 @@ public class FileServiceImpl implements FileService.Iface {
     private static Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
     @Override
-    public String uploadFile(FileData filedata) throws TException {
-        logger.info("uploadFile function has been called.");
-//        checkFileData(filedata); //检查文件上传的路径
-        return this.saveFile2Local(filedata);
+    public String uploadFile(FileData fileData) throws TException {
+        checkFileData(fileData);
+        return this.saveFile2Local(fileData);
     }
 
     /**
-     * 校验上传的filedata合法
+     * 校验上传的各项参数是否合法
      *
      * @param fileData
      */
     private void checkFileData(FileData fileData) {
-        String filePath;
         if (fileData == null) {
             throw new RuntimeException("文件对象不能为空！");
         }
-        filePath = fileData.filePath;
-        if (!FileUtil.isLegalPath(filePath)) {
+        if (!FileUtil.isLegalPath(fileData.filePath)) {
             throw new RuntimeException("文件服务器上传地址不合法法");
         }
     }
@@ -54,11 +52,11 @@ public class FileServiceImpl implements FileService.Iface {
         FileChannel channel = null;
         String filePath = this.getUploadFilePath(fileData);
         try {
-            File file = new File(filePath);
+            File file = new File(Constant.UPLOAD_FILEPATH + filePath);
             fos = new FileOutputStream(file);
             channel = fos.getChannel();
             channel.write(fileData.fileBuff);
-            return filePath;
+            return Constant.IMAGE_HOSTNAME + filePath;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -86,6 +84,6 @@ public class FileServiceImpl implements FileService.Iface {
         if (!filePath.exists()) {
             filePath.mkdirs();
         }
-        return Constants.ROOT_FILE_PATH + fileData.getFilePath() + "/" + fileName + "." + suffixName;
+        return fileData.getFilePath() + "/" + fileName + "." + suffixName;
     }
 }
