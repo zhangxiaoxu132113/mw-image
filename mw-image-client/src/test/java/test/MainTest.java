@@ -9,7 +9,7 @@ import com.water.image.client.ImageUploadClient;
 public class MainTest {
 
     public static void main(String[] args) {
-        String localFilePath = "http://img.2cto.com/Collfiles/20171109/20171109141044222.jpg";
+        String localFilePath = "https://img.meikew.com/uploads/2015/05/onsd00884pl.jpg";
         String remoteFilePath = "d:\\";
         String filePath = ImageUploadClient.uplaodImageWithFileUrl(localFilePath);
         System.out.println(filePath);

@@ -3,7 +3,6 @@ package com.water.image.client.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -24,7 +23,7 @@ public final class Constant {
     static {
         try {
             Properties prop = new Properties();
-            InputStream fis =  Thread.currentThread().getClass().getResourceAsStream("/config.properties");
+            InputStream fis =  Thread.currentThread().getClass().getResourceAsStream("/mw-image.config.properties");
             prop.load(fis);
             SERVER_IP = prop.getProperty("server.ip");
             SERVER_PORT = Integer.valueOf(prop.getProperty("server.port"));

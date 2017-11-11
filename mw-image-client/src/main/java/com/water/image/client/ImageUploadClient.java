@@ -18,7 +18,9 @@ public class ImageUploadClient extends AppClient {
     /**
      * 默认上传文件路径
      */
-    private static final String DEFAULT_UPLOAD_FILE_PATH = FileUtil.UPLOAD_FILE_PATH + DateUtils.DATE_FORMAT_YMD_WITHOUT_SEPARATOR.format(new Date());
+    private static final String DEFAULT_UPLOAD_FILE_PATH = FileUtil.UPLOAD_FILE_PATH +
+            DateUtils.DATE_FORMAT_YMWITHOUT_SEPARATOR.format(new Date()) + "/" +
+            DateUtils.DATE_FORMAT_D_WITHOUT_SEPARATOR.format(new Date());
 
     public static String uploadImageWithFilePath(String localFilePath) {
         return uploadImageWithFilePath(localFilePath, DEFAULT_UPLOAD_FILE_PATH);
@@ -58,6 +60,11 @@ public class ImageUploadClient extends AppClient {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String uploadImage(byte[] byteArray, String fileName) throws TException {
+        FileData fileData = FileUtil.generateFileData(byteArray, fileName, DEFAULT_UPLOAD_FILE_PATH);// 构造文件数据
+        return uploadFile(fileData);
     }
 
     public static String uploadFile(FileData fileData) throws TException {

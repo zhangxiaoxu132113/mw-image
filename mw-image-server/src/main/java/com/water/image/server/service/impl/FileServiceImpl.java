@@ -5,6 +5,7 @@ import com.water.image.client.model.FileData;
 import com.water.image.client.service.FileService;
 import com.water.image.client.utils.Constant;
 import com.water.image.client.utils.FileUtil;
+import com.water.image.server.task.UploadFileTask;
 import com.water.image.server.utils.Constants;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.UUID;
+import java.util.concurrent.*;
 
 /**
  * 文件服务业务类
@@ -24,10 +26,22 @@ public class FileServiceImpl implements FileService.Iface {
 
     private static Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
+    private static ExecutorService executor = Executors.newFixedThreadPool(2);
+
     @Override
-    public String uploadFile(FileData fileData) throws TException {
-        checkFileData(fileData);
-        return this.saveFile2Local(fileData);
+    public String uploadFile(final FileData fileData) throws TException {
+        String returnFilePath = null;
+        Future<String> future = null;
+        try {
+            checkFileData(fileData);
+            future = executor.submit(new UploadFileTask(fileData));
+            returnFilePath = future.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return returnFilePath;
     }
 
     /**
@@ -44,46 +58,4 @@ public class FileServiceImpl implements FileService.Iface {
         }
     }
 
-    /**
-     * 核心方法，将文件保存到本地 - [暂时，这里的处理是阻塞]
-     */
-    private String saveFile2Local(FileData fileData) {
-        FileOutputStream fos;
-        FileChannel channel = null;
-        String filePath = this.getUploadFilePath(fileData);
-        try {
-            File file = new File(Constant.UPLOAD_FILEPATH + filePath);
-            fos = new FileOutputStream(file);
-            channel = fos.getChannel();
-            channel.write(fileData.fileBuff);
-            return Constant.IMAGE_HOSTNAME + filePath;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (channel != null) {
-                try {
-                    channel.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 获取上传文件的路径
-     *
-     * @param fileData
-     * @return
-     */
-    private String getUploadFilePath(FileData fileData) {
-        String suffixName = fileData.getSuffixName();
-        String fileName = UUID.randomUUID().toString();
-        File filePath = new File(Constants.ROOT_FILE_PATH + fileData.getFilePath());
-        if (!filePath.exists()) {
-            filePath.mkdirs();
-        }
-        return fileData.getFilePath() + "/" + fileName + "." + suffixName;
-    }
 }

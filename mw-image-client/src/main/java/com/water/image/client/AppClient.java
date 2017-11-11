@@ -15,22 +15,29 @@ import java.io.IOException;
  * Created by zhang miaojie on 2017/11/9.
  */
 public class AppClient {
+    private static TBinaryProtocol tBinaryProtocol;
 
     protected static TBinaryProtocol getTBinaryProtocol() {
-        TSocket socket = null;
-        TFramedTransport framedTransport = null;
-        TBinaryProtocol binaryProtocol = null;
-        try {
-            socket = new TSocket(Constant.SERVER_IP, Constant.SERVER_PORT);// 构造Thrift客户端，发起请求
-            socket.setSocketTimeout(Constant.SOCKET_TIMEOUT);
-            framedTransport = new TFramedTransport(socket);
-            framedTransport.open();
-            binaryProtocol = new TBinaryProtocol(framedTransport);
-            return binaryProtocol;
-        } catch (TTransportException e) {
-            e.printStackTrace();
+        if (tBinaryProtocol == null) {
+            synchronized (AppClient.class) {
+                if (tBinaryProtocol == null) {
+                    TSocket socket = null;
+                    TFramedTransport framedTransport = null;
+                    TBinaryProtocol binaryProtocol = null;
+                    try {
+                        socket = new TSocket(Constant.SERVER_IP, Constant.SERVER_PORT);// 构造Thrift客户端，发起请求
+                        socket.setSocketTimeout(Constant.SOCKET_TIMEOUT);
+                        framedTransport = new TFramedTransport(socket);
+                        framedTransport.open();
+                        binaryProtocol = new TBinaryProtocol(framedTransport);
+                        return binaryProtocol;
+                    } catch (TTransportException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
-        return null;
+        return tBinaryProtocol;
     }
 
     /**
