@@ -1,6 +1,7 @@
 package test;
 
 import com.water.image.client.ImageUploadClient;
+import org.apache.thrift.TException;
 
 /**
  *
@@ -8,10 +9,10 @@ import com.water.image.client.ImageUploadClient;
  */
 public class MainTest {
 
-    public static void main(String[] args) {
-        String localFilePath = "https://img.meikew.com/uploads/2015/05/onsd00884pl.jpg";
+    public static void main(String[] args) throws TException {
+        String localFilePath = "http://img.zcool.cn/community/01bd375a0413c7a80121985cca0f70.jpg@1280w_1l_2o_100sh.jpg";
         String remoteFilePath = "d:\\";
-        String filePath = ImageUploadClient.uplaodImageWithFileUrl(localFilePath);
+        String filePath = ImageUploadClient.uplaodImageWithFileUrlByCompress(localFilePath);
         System.out.println(filePath);
     }
 }

@@ -8,6 +8,7 @@ import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 文件上传客户端
@@ -65,6 +66,24 @@ public class ImageUploadClient extends AppClient {
     public static String uploadImage(byte[] byteArray, String fileName) throws TException {
         FileData fileData = FileUtil.generateFileData(byteArray, fileName, DEFAULT_UPLOAD_FILE_PATH);// 构造文件数据
         return uploadFile(fileData);
+    }
+
+    public static String uplaodImageWithFileUrlByCompress(String fileUrl) throws TException {
+        byte[] imageByte = toByteArrayWithUrl(fileUrl);
+        return uploadImage(imageByte, fileUrl, true);
+    }
+
+    public static String uploadImage(byte[] byteArray, String fileName, boolean isCompress) throws TException {
+        if (!isCompress) {
+            return uploadImage(byteArray, fileName);
+        }
+        List<FileData> fileDataList =  FileUtil.generateFileDataList(byteArray, fileName);
+        if (fileDataList != null && fileDataList.size() > 0) {
+            for (FileData fileData : fileDataList) {
+                uploadFile(fileData);
+            }
+        }
+        return null;
     }
 
     public static String uploadFile(FileData fileData) throws TException {
