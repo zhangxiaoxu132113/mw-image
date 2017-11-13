@@ -57,9 +57,9 @@ public class FileServiceImpl implements FileService.Iface {
                 if (resulttmp.getOriginal() != null && resulttmp.getOriginal().contains(FileUtil.UPLOAD_FILE_ORIGINAL_PATH)) {
                     result.setOriginal(resulttmp.getOriginal());
                 } else if (resulttmp.getOriginal() != null && resulttmp.getOriginal().contains(FileUtil.UPLOAD_FILE_BMIDDLE_PATH)) {
-                    result.setBmiddle(result.getOriginal());
+                    result.setBmiddle(resulttmp.getOriginal());
                 } else if (resulttmp.getOriginal() != null && resulttmp.getOriginal().contains(FileUtil.UPLOAD_FILE_THUMBNAIL_PATH)) {
-                    result.setThumbnail(result.getOriginal());
+                    result.setThumbnail(resulttmp.getOriginal());
                 }
             } catch (TException e) {
                 e.printStackTrace();
