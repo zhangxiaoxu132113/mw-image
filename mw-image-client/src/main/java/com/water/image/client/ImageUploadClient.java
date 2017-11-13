@@ -1,6 +1,7 @@
 package com.water.image.client;
 
 import com.water.image.client.model.FileData;
+import com.water.image.client.model.RequestResult;
 import com.water.image.client.service.FileService;
 import com.water.image.client.utils.DateUtils;
 import com.water.image.client.utils.FileUtil;
@@ -23,7 +24,7 @@ public class ImageUploadClient extends AppClient {
             DateUtils.DATE_FORMAT_YMWITHOUT_SEPARATOR.format(new Date()) + "/" +
             DateUtils.DATE_FORMAT_D_WITHOUT_SEPARATOR.format(new Date());
 
-    public static String uploadImageWithFilePath(String localFilePath) {
+    public static RequestResult uploadImageWithFilePath(String localFilePath) {
         return uploadImageWithFilePath(localFilePath, DEFAULT_UPLOAD_FILE_PATH);
     }
 
@@ -33,7 +34,7 @@ public class ImageUploadClient extends AppClient {
      * @param localFilePath  本地文件地址
      * @param remoteFilePath 图片上传服务器地址
      */
-    public static String uploadImageWithFilePath(String localFilePath, String remoteFilePath) {
+    public static RequestResult uploadImageWithFilePath(String localFilePath, String remoteFilePath) {
         try {
             FileData fileData = FileUtil.generateFileData(toByteArray(localFilePath), localFilePath, remoteFilePath);// 构造文件数据
             uploadFile(fileData);
@@ -43,7 +44,7 @@ public class ImageUploadClient extends AppClient {
         return null;
     }
 
-    public static String uplaodImageWithFileUrl(String fileUrl) {
+    public static RequestResult uplaodImageWithFileUrl(String fileUrl) {
         return uplaodImageWithFileUrl(fileUrl, DEFAULT_UPLOAD_FILE_PATH);
     }
 
@@ -53,7 +54,7 @@ public class ImageUploadClient extends AppClient {
      * @param fileUrl        图片url地址
      * @param remoteFilePath 图片上传服务器地址
      */
-    public static String uplaodImageWithFileUrl(String fileUrl, String remoteFilePath) {
+    public static RequestResult uplaodImageWithFileUrl(String fileUrl, String remoteFilePath) {
         try {
             FileData fileData = FileUtil.generateFileData(toByteArrayWithUrl(fileUrl), fileUrl, remoteFilePath);// 构造文件数据
             return uploadFile(fileData);
@@ -63,30 +64,27 @@ public class ImageUploadClient extends AppClient {
         return null;
     }
 
-    public static String uploadImage(byte[] byteArray, String fileName) throws TException {
+    public static RequestResult uploadImage(byte[] byteArray, String fileName) throws TException {
         FileData fileData = FileUtil.generateFileData(byteArray, fileName, DEFAULT_UPLOAD_FILE_PATH);// 构造文件数据
         return uploadFile(fileData);
     }
 
-    public static String uplaodImageWithFileUrlByCompress(String fileUrl) throws TException {
+    public static RequestResult uplaodImageWithFileUrlByCompress(String fileUrl) throws TException {
         byte[] imageByte = toByteArrayWithUrl(fileUrl);
         return uploadImage(imageByte, fileUrl, true);
     }
 
-    public static String uploadImage(byte[] byteArray, String fileName, boolean isCompress) throws TException {
+    public static RequestResult uploadImage(byte[] byteArray, String fileName, boolean isCompress) throws TException {
         if (!isCompress) {
             return uploadImage(byteArray, fileName);
         }
         List<FileData> fileDataList =  FileUtil.generateFileDataList(byteArray, fileName);
-        if (fileDataList != null && fileDataList.size() > 0) {
-            for (FileData fileData : fileDataList) {
-                uploadFile(fileData);
-            }
-        }
-        return null;
+        TBinaryProtocol binaryProtocol = getTBinaryProtocol();
+        FileService.Client client = new FileService.Client(binaryProtocol);
+        return client.uploadFileList(fileDataList);
     }
 
-    public static String uploadFile(FileData fileData) throws TException {
+    public static RequestResult uploadFile(FileData fileData) throws TException {
         TBinaryProtocol binaryProtocol = getTBinaryProtocol();
         FileService.Client client = new FileService.Client(binaryProtocol);
         return client.uploadFile(fileData);
