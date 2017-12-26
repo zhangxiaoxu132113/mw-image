@@ -12,6 +12,4 @@
         <module>mw-image-client</module>
         <module>mw-image-server</module>
     </modules>
-
-
 </project>

@@ -74,11 +74,20 @@ public class ImageUploadClient extends AppClient {
         return uploadImage(imageByte, fileUrl, true);
     }
 
+    /**
+     * 上传图片
+     *
+     * @param byteArray  图片字节数组
+     * @param fileName   图片文件名
+     * @param isCompress 是否压缩图片
+     * @return RequestResult
+     * @throws TException
+     */
     public static RequestResult uploadImage(byte[] byteArray, String fileName, boolean isCompress) throws TException {
         if (!isCompress) {
             return uploadImage(byteArray, fileName);
         }
-        List<FileData> fileDataList =  FileUtil.generateFileDataList(byteArray, fileName);
+        List<FileData> fileDataList = FileUtil.generateFileDataList(byteArray, fileName);
         TBinaryProtocol binaryProtocol = getTBinaryProtocol();
         FileService.Client client = new FileService.Client(binaryProtocol);
         return client.uploadFileList(fileDataList);
