@@ -1,15 +1,12 @@
 package com.water.image.server.mq;
 
 import com.water.image.client.model.FileData;
+import com.water.image.server.task.UploadFileTask;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import javax.jms.JMSException;
-import javax.jms.TextMessage;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  * 上传图片文件的消费者
@@ -21,13 +18,6 @@ public class UploadImageCustomer {
 
     @JmsListener(destination = "upload.image.queue")
     public void receiveQueue(final FileData message) {
-        threadPool.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                System.out.println(message.getSuffixName());
-            }
-        });
-
+        threadPool.submit(new UploadFileTask(message));
     }
 }

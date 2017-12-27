@@ -2,6 +2,7 @@ package com.water.image.server.task;
 
 import com.water.image.client.model.FileData;
 import com.water.image.client.utils.Constant;
+import com.water.image.server.utils.UploadFileHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,7 +36,7 @@ public class UploadFileTask implements Callable {
     private String saveFile2Local(FileData fileData) {
         FileOutputStream fos;
         FileChannel channel = null;
-        String filePath = this.getUploadFilePath(fileData);
+        String filePath = UploadFileHelper.getUploadFilePath(fileData);
         try {
             File file = new File(Constant.UPLOAD_FILEPATH + filePath);
             fos = new FileOutputStream(file);
@@ -54,21 +55,5 @@ public class UploadFileTask implements Callable {
             }
         }
         return null;
-    }
-
-    /**
-     * 获取上传文件的路径
-     *
-     * @param fileData
-     * @return
-     */
-    private String getUploadFilePath(FileData fileData) {
-        String suffixName = fileData.getSuffixName();
-        String fileName = UUID.randomUUID().toString();
-        File filePath = new File(Constant.UPLOAD_FILEPATH + fileData.getFilePath());
-        if (!filePath.exists()) {
-            filePath.mkdirs();
-        }
-        return fileData.getFilePath() + "/" + fileName + "." + suffixName;
     }
 }
