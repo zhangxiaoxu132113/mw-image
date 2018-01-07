@@ -18,6 +18,7 @@ struct FileData
 // -------------------------------------------------------------------- Service
 service FileService
 {
-    RequestResult uploadFile(1:FileData filedata);                 // 文件解析函数
-    RequestResult uploadFileList(1:list<FileData> fileDataList);       // 文件解析函数
+    RequestResult uploadFile(1:FileData filedata);               // 文件解析函数
+    RequestResult ajaxUploadFile(1:FileData filedata);       // 文件解析函数
+    RequestResult uploadFileList(1:list<FileData> fileDataList);           // 文件解析函数
 }

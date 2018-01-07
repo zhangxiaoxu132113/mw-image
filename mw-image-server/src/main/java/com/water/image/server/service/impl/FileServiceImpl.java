@@ -4,12 +4,18 @@ package com.water.image.server.service.impl;
 import com.water.image.client.model.FileData;
 import com.water.image.client.model.RequestResult;
 import com.water.image.client.service.FileService;
+import com.water.image.client.utils.Constant;
 import com.water.image.client.utils.FileUtil;
+import com.water.image.server.mq.MessageThreadService;
 import com.water.image.server.task.UploadFileTask;
+import com.water.image.server.utils.UploadFileHelper;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resource;
+import javax.jms.Destination;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -22,6 +28,13 @@ public class FileServiceImpl implements FileService.Iface {
     private static Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
     private static ExecutorService executor = Executors.newFixedThreadPool(2);
+    /**
+     * 图片上传的消息队列
+     */
+    private static Destination destination = new ActiveMQQueue("upload.image.queue");
+
+    @Resource(name = "messageThreadService")
+    private MessageThreadService messageThreadService;
 
     @Override
     public RequestResult uploadFile(final FileData fileData) throws TException {
@@ -42,6 +55,17 @@ public class FileServiceImpl implements FileService.Iface {
         result.setOriginal(returnFilePath);
         result.setBmiddle("");
         result.setThumbnail("");
+        return result;
+    }
+
+    @Override
+    public RequestResult ajaxUploadFile(FileData fileData) throws TException {
+        //将上传的文件对象丢到消息队列
+        messageThreadService.sendMessage(destination, fileData);
+        RequestResult result = new RequestResult();
+        result.setCode(0);
+        result.setDesc("操作成功！");
+        result.setOriginal(Constant.IMAGE_HOSTNAME + UploadFileHelper.getUploadFilePath(fileData));
         return result;
     }
 
