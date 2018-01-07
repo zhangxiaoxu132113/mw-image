@@ -15,7 +15,7 @@ import java.util.concurrent.CountDownLatch;
 public class MainTest {
 
     public static void main(String[] args) throws TException {
-        String localFilePath = "http://img.zcool.cn/community/01bd375a0413c7a80121985cca0f70.jpg@1280w_1l_2o_100sh.jpg";
+        String localFilePath = "http://www.uubook.net:80/asset/ad/0.jpg";
         RequestResult result = ImageUploadClient.uplaodImageWithFileUrlByCompress(localFilePath);
         System.out.println(result.getOriginal());
         System.out.println(result.getBmiddle());

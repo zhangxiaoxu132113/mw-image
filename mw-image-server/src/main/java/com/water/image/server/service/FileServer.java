@@ -1,4 +1,4 @@
-package com.water.image.server;
+package com.water.image.server.service;
 
 import com.water.image.client.service.FileService;
 import com.water.image.client.utils.Constant;

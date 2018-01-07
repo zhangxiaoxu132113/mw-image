@@ -40,6 +40,8 @@ public class FileServiceImpl implements FileService.Iface {
         result.setCode(0);
         result.setDesc("操作成功！");
         result.setOriginal(returnFilePath);
+        result.setBmiddle("");
+        result.setThumbnail("");
         return result;
     }
 
