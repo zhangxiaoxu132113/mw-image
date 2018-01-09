@@ -34,8 +34,8 @@ public class ImageUploadClient extends AppClient {
      * @param localFilePath 本地图片的路径
      * @return RequestResult
      */
-    public static RequestResult uploadImageWithFilePath(String localFilePath) {
-        return uploadImageWithFilePath(localFilePath, DEFAULT_UPLOAD_FILE_PATH);
+    public static RequestResult uploadImageWithFilePath(String localFilePath, boolean isAsynch) {
+        return uploadImageWithFilePath(localFilePath, DEFAULT_UPLOAD_FILE_PATH, isAsynch);
     }
 
     /**
@@ -44,10 +44,10 @@ public class ImageUploadClient extends AppClient {
      * @param localFilePath  本地文件地址
      * @param remoteFilePath 图片上传服务器地址
      */
-    public static RequestResult uploadImageWithFilePath(String localFilePath, String remoteFilePath) {
+    public static RequestResult uploadImageWithFilePath(String localFilePath, String remoteFilePath, boolean isAsynch) {
         try {
             FileData fileData = FileUtil.generateFileData(ByteUtil.toByteArray(localFilePath), localFilePath, remoteFilePath);// 构造文件数据
-            uploadFile(fileData);
+            uploadFile(fileData, isAsynch);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,8 +60,8 @@ public class ImageUploadClient extends AppClient {
      * @param fileUrl 图片url地址
      * @return RequestResult
      */
-    public static RequestResult uplaodImageWithFileUrl(String fileUrl) {
-        return uplaodImageWithFileUrl(fileUrl, DEFAULT_UPLOAD_FILE_PATH, 1);
+    public static RequestResult uplaodImageWithFileUrl(String fileUrl, boolean isAsynch) {
+        return uplaodImageWithFileUrl(fileUrl, DEFAULT_UPLOAD_FILE_PATH, 1, isAsynch);
     }
 
     /**
@@ -71,8 +71,8 @@ public class ImageUploadClient extends AppClient {
      * @param compressScale 图片压缩的比例
      * @return RequestResult
      */
-    public static RequestResult uplaodImageWithFileUrlAndCompressScale(String fileUrl, float compressScale) {
-        return uplaodImageWithFileUrl(fileUrl, DEFAULT_UPLOAD_FILE_PATH, compressScale);
+    public static RequestResult uplaodImageWithFileUrlAndCompressScale(String fileUrl, float compressScale, boolean isAsynch) {
+        return uplaodImageWithFileUrl(fileUrl, DEFAULT_UPLOAD_FILE_PATH, compressScale, isAsynch);
     }
 
     public static RequestResult uplaodImageWithFileUrlByCompress(String fileUrl) throws TException {
@@ -87,12 +87,12 @@ public class ImageUploadClient extends AppClient {
      * @param remoteFilePath 图片上传服务器地址
      * @param compressScale  图片压缩的比例
      */
-    public static RequestResult uplaodImageWithFileUrl(String fileUrl, String remoteFilePath, float compressScale) {
+    public static RequestResult uplaodImageWithFileUrl(String fileUrl, String remoteFilePath, float compressScale, boolean isAsynch) {
         try {
             byte[] imageByte = ByteUtil.toByteArrayWithUrl(fileUrl);
             byte[] compressScaleByteArr = FileUtil.compressWithScala(fileUrl, imageByte, compressScale); // 文件压缩
             FileData fileData = FileUtil.generateFileData(compressScaleByteArr, fileUrl, remoteFilePath);// 构造文件数据
-            return uploadFile(fileData);
+            return uploadFile(fileData, isAsynch);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,7 +109,7 @@ public class ImageUploadClient extends AppClient {
      */
     public static RequestResult uploadImage(byte[] byteArray, String fileName) throws TException {
         FileData fileData = FileUtil.generateFileData(byteArray, fileName, DEFAULT_UPLOAD_FILE_PATH);// 构造文件数据
-        return uploadFile(fileData);
+        return uploadFile(fileData, false);
     }
 
 
@@ -132,10 +132,16 @@ public class ImageUploadClient extends AppClient {
         return client.uploadFileList(fileDataList);
     }
 
-    public static RequestResult uploadFile(FileData fileData) throws TException {
+    public static RequestResult uploadFile(FileData fileData, boolean isAsynch) throws TException {
         TBinaryProtocol binaryProtocol = getTBinaryProtocol();
         FileService.Client client = new FileService.Client(binaryProtocol);
-        return client.uploadFile(fileData);
+        RequestResult requestResult;
+        if (isAsynch) {
+            requestResult = client.ajaxUploadFile(fileData);
+        } else {
+            requestResult = client.uploadFile(fileData);
+        }
+        return requestResult;
     }
 
     public static RequestResult fail() {
