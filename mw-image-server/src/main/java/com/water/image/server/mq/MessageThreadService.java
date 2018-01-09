@@ -10,8 +10,9 @@ import javax.jms.Destination;
 /**
  * Created by ZMJ on 2017/12/26.
  */
-@Component("messageThreadService")
+@Component
 public class MessageThreadService {
+
     @Autowired
     private JmsMessagingTemplate jmsTemplate;
 

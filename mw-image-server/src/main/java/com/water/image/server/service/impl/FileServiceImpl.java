@@ -13,6 +13,8 @@ import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
@@ -23,24 +25,26 @@ import java.util.concurrent.*;
  * 文件服务业务类
  * Created by zhang miaojie on 2017/11/9.
  */
+@Component
 public class FileServiceImpl implements FileService.Iface {
 
     private static Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
     private static ExecutorService executor = Executors.newFixedThreadPool(2);
+
     /**
      * 图片上传的消息队列
      */
     private static Destination destination = new ActiveMQQueue("upload.image.queue");
 
-    @Resource(name = "messageThreadService")
+    @Resource
     private MessageThreadService messageThreadService;
 
     @Override
     public RequestResult uploadFile(final FileData fileData) throws TException {
         RequestResult result = new RequestResult();
         String returnFilePath = null;
-        Future<String> future = null;
+        Future<String> future;
         try {
             checkFileData(fileData);
             future = executor.submit(new UploadFileTask(fileData));

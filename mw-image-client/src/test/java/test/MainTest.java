@@ -15,12 +15,13 @@ import java.util.concurrent.CountDownLatch;
 public class MainTest {
 
     public static void main(String[] args) throws TException {
-        String localFilePath = "http://www.uubook.net:80/asset/ad/0.jpg";
-        RequestResult result = ImageUploadClient.uplaodImageWithFileUrlByCompress(localFilePath);
-        System.out.println(result.getOriginal());
-        System.out.println(result.getBmiddle());
-        System.out.println(result.getThumbnail());
+        String localFilePath = "http://img.uubook.net/upload/bmiddle/201801/06/12e6e69e-3dcb-4d73-a5eb-115898534383.png";
+//        RequestResult result = ImageUploadClient.uplaodImageWithFileUrlByCompress(localFilePath);
+//        System.out.println(result.getOriginal());
+//        System.out.println(result.getBmiddle());
+//        System.out.println(result.getThumbnail());
 
+        ImageUploadClient.uplaodImageWithFileUrl(localFilePath, true);
 
     }
 }
