@@ -70,6 +70,18 @@ public class FileUtil {
         return fileDataList;
     }
 
+    /**
+     * 按照比例，压缩图片的字节
+     * @param filepath 文件的路径
+     * @param byteArr 文件的字节数组
+     * @param scala   压缩比例
+     * @return byte[]
+     */
+    public static byte[] compressWithScala(String filepath, byte[] byteArr, float scala) {
+        String suffix = getSuffix(filepath);
+        return ImageUtil.compressImage(new ByteArrayInputStream(byteArr), suffix, 0.5f);
+    }
+
     private static String getSuffix(String filePath) {
         return filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
     }

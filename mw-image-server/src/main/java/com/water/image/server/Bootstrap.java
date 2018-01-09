@@ -10,14 +10,8 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
  * Created by zhangmiaojie on 2017/11/11.
  */
 @SpringBootApplication
-public class Bootstrap implements EmbeddedServletContainerCustomizer{
+public class Bootstrap {
     public static void main(String[] args) throws TTransportException {
-//        FileServer.startup();
         SpringApplication.run(Bootstrap.class, args);
-    }
-
-
-    public void customize(ConfigurableEmbeddedServletContainer configurableEmbeddedServletContainer) {
-        configurableEmbeddedServletContainer.setPort(9011);
     }
 }

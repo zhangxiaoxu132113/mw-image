@@ -10,7 +10,7 @@ server模块主要是提供上传文件方法的具体实现，由于面向接�
 
 fileData.thrift文件
 
-```protobuf
+```pro
 // -------------------------------------------------------------------- File
 struct FileData
 {
@@ -91,4 +91,16 @@ try {
 ```java
 ImageUploadClient.uploadImage(file.getBytes(), file.getName());
 ```
+
+mw-image-client api说明
+提供了文件上传的功能
+
+|                    方法                    |       方法描述        |                 方法参数说明                 |
+| :--------------------------------------: | :---------------: | :------------------------------------: |
+| RequestResult uploadImageWithFilePath(String localFilePath) |      上传本地的图片      |          localFilePath本地图片路径           |
+| RequestResult uplaodImageWithFileUrl(String fileUrl) |    上传带url地址的图片    |            fileUrl 图片的url地址            |
+| RequestResult uplaodImageWithFileUrlAndCompressScale(String fileUrl, float compressScale) | 上传带url地址的图片，使用了压缩 | fileUrl:图片的url地址 compressScale：图片压缩的比例 |
+
+
+ 
 

@@ -12,4 +12,10 @@
         <module>mw-image-client</module>
         <module>mw-image-server</module>
     </modules>
+    <properties>
+        <rabbitmq.version>3.6.1</rabbitmq.version>
+        <thrift.version>0.10.0</thrift.version>
+        <thumbnailator.version>0.4.8</thumbnailator.version>
+        <log4j-core.version>2.7</log4j-core.version>
+    </properties>
 </project>

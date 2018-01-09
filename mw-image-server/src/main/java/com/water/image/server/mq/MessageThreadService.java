@@ -20,6 +20,11 @@ public class MessageThreadService {
         jmsTemplate.convertAndSend(destination, message);
     }
 
+    /**
+     * 图片的文件字节
+     * @param destination
+     * @param message
+     */
     public void sendMessage(Destination destination, final FileData message){
         jmsTemplate.convertAndSend(destination, message);
     }

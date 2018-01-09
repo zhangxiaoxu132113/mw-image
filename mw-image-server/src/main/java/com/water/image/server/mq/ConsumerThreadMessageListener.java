@@ -17,7 +17,6 @@ public class ConsumerThreadMessageListener implements MessageListener {
     private ExecutorService threadPool = Executors.newFixedThreadPool(6);
 
     public ConsumerThreadMessageListener() {
-        System.out.println("ConsumerThreadMessageListener");
     }
 
     @Override
