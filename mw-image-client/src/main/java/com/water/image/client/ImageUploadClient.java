@@ -6,14 +6,13 @@ import com.water.image.client.service.FileService;
 import com.water.image.client.utils.ByteUtil;
 import com.water.image.client.utils.DateUtils;
 import com.water.image.client.utils.FileUtil;
-import com.water.image.client.utils.ImageUtil;
-import org.apache.logging.log4j.core.util.FileUtils;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
-import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 /**
  * 文件上传客户端

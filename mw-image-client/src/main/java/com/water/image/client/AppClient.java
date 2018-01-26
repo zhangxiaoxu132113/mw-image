@@ -12,18 +12,19 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
+ *
  * Created by zhang miaojie on 2017/11/9.
  */
-public class AppClient {
+class AppClient {
     private static TBinaryProtocol tBinaryProtocol;
 
-    protected static TBinaryProtocol getTBinaryProtocol() {
+    static TBinaryProtocol getTBinaryProtocol() {
         if (tBinaryProtocol == null) {
             synchronized (AppClient.class) {
                 if (tBinaryProtocol == null) {
                     TSocket socket = null;
-                    TFramedTransport framedTransport = null;
                     TBinaryProtocol binaryProtocol = null;
+                    TFramedTransport framedTransport = null;
                     try {
                         socket = new TSocket(Constant.SERVER_IP, Constant.SERVER_PORT);// 构造Thrift客户端，发起请求
                         socket.setSocketTimeout(Constant.SOCKET_TIMEOUT);
@@ -38,5 +39,14 @@ public class AppClient {
             }
         }
         return tBinaryProtocol;
+    }
+
+    /**
+     * 释放资源
+     */
+    synchronized static void retrunResource() {
+        if (tBinaryProtocol != null) {
+            tBinaryProtocol = null;
+        }
     }
 }
