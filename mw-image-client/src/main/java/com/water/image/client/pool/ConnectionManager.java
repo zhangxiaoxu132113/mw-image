@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * 连接池管理者
- * Created by zhangmiaojie on 2018/1/24.
+ * Created by zmj on 2018/1/24.
  */
 @Data
 public class ConnectionManager {

@@ -12,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
- *
  * Created by zhang miaojie on 2017/11/9.
  */
 class AppClient {
