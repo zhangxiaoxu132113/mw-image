@@ -32,8 +32,7 @@ public class ThriftConnectionPoolFactory extends BasePoolableObjectFactory<Thrif
             thriftTSocket.open();
             LOGGER.info(logPrefix + "connect server:[" + address.getHostName() + ":" + address.getPort() + "] success");
         } catch (Exception e) {
-            LOGGER.error(logPrefix + "connect server[" + address.getHostName() + ":" + address.getPort() + "] error: ",
-                    e);
+            LOGGER.error(logPrefix + "connect server[" + address.getHostName() + ":" + address.getPort() + "] error: ", e);
             exception = e;
             thriftTSocket = null;// 这里是为了下面连接其他服务器
         }

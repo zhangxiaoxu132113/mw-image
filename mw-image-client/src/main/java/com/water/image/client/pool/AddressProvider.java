@@ -18,7 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 /**
- * Created by admin on 2018/2/1.
+ * Created by ZMJ on 2018/2/1.
  */
 public class AddressProvider {
     private static Logger LOGGER = LoggerFactory.getLogger(AddressProvider.class);
@@ -26,17 +26,17 @@ public class AddressProvider {
     /**
      * 最新的服务器IP列表，由zookeeper来维护更新
      */
-    private List<InetSocketAddress> serverAddresses = new CopyOnWriteArrayList<InetSocketAddress>();
+    private List<InetSocketAddress> serverAddresses = new CopyOnWriteArrayList<>();
 
     /**
      * 没有配置zookeeper时使用原来配置文件中的IP列表
      */
-    private List<InetSocketAddress> backupAddresses = new LinkedList<InetSocketAddress>();
+    private List<InetSocketAddress> backupAddresses = new LinkedList<>();
 
     /**
      * 轮循队列，获取IP时使用
      */
-    private Queue<InetSocketAddress> loop = new LinkedList<InetSocketAddress>();
+    private Queue<InetSocketAddress> loop = new LinkedList<>();
 
     private Lock loopLock = new ReentrantLock();
 
@@ -122,7 +122,7 @@ public class AddressProvider {
                     LOGGER.error(logPrefix + "server ips in zookeeper is empty");
                     return;
                 }
-                List<InetSocketAddress> lastServerAddress = new LinkedList<InetSocketAddress>();
+                List<InetSocketAddress> lastServerAddress = new LinkedList<>();
                 for (ChildData data : children) {
                     String address = new String(data.getData(), "utf-8");
                     lastServerAddress.add(transferSingle(address));
@@ -160,7 +160,7 @@ public class AddressProvider {
         if (StringUtils.isBlank(serverAddresses)) {
             return null;
         }
-        List<InetSocketAddress> tempServerAdress = new LinkedList<InetSocketAddress>();
+        List<InetSocketAddress> tempServerAdress = new LinkedList<>();
         String[] hostnames = serverAddresses.split(";");
         for (String hostname : hostnames) {
             tempServerAdress.add(this.transferSingle(hostname));

@@ -83,7 +83,7 @@ public class ConnectionPool {
             if (poolShuttingDown) {
                 throw new RuntimeException("pool is shutdown");
             }
-            ConnectionHandle connectionHandle = new ConnectionHandle(null);
+            ConnectionHandle connectionHandle = new ConnectionHandle();
             this.freeConnections.add(connectionHandle);
             this.connPool.add(connectionHandle);
         }
