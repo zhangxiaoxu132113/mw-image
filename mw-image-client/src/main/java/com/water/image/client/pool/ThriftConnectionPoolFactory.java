@@ -1,6 +1,7 @@
 package com.water.image.client.pool;
 
 import org.apache.commons.pool.BasePoolableObjectFactory;
+import org.apache.thrift.transport.TTransportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,13 +9,16 @@ import java.net.InetSocketAddress;
 import java.util.Iterator;
 
 /**
- * Created by admin on 2018/2/1.
+ * 从AddressProvider获取ip，port信息
+ * Created by ZMJ on 2018/2/1.
  */
 public class ThriftConnectionPoolFactory extends BasePoolableObjectFactory<ThriftTSocket> {
     private static Logger LOGGER = LoggerFactory.getLogger(ThriftConnectionPoolFactory.class);
 
     private final AddressProvider addressProvider;
-    private int timeout = 2000;
+    private final static String logPrefix = "makeObject_";
+    private int timeout = 2000; //todo 这里延迟用配置文件来设置，默认初始值为2000
+    private int RETRY_COUNT = 1;
 
     protected ThriftConnectionPoolFactory(AddressProvider addressProvider) throws Exception {
         this.addressProvider = addressProvider;
@@ -22,7 +26,6 @@ public class ThriftConnectionPoolFactory extends BasePoolableObjectFactory<Thrif
 
     @Override
     public ThriftTSocket makeObject() throws Exception {
-        String logPrefix = "makeObject_";
         ThriftTSocket thriftTSocket = null;
         InetSocketAddress address = null;
         Exception exception = null;
@@ -40,12 +43,15 @@ public class ThriftConnectionPoolFactory extends BasePoolableObjectFactory<Thrif
         if (thriftTSocket == null) {
             String hostName = address.getHostName();
             int port = address.getPort();
+            int tryCount = 0;
             Iterator<InetSocketAddress> addressIterator = this.addressProvider.addressIterator();
             while (addressIterator.hasNext()) {
                 try {
                     address = addressIterator.next();
                     // 不再尝试连接之前已经连接失败的主机
                     if (address.getHostName().equals(hostName) && address.getPort() == port) {
+                        tryCount ++;
+                        if (tryCount == RETRY_COUNT) break;
                         continue;
                     }
                     thriftTSocket = new ThriftTSocket(address.getHostName(), address.getPort(), timeout);

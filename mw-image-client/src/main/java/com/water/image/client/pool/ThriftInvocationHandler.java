@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
- * Created by admin on 2018/2/1.
+ * Created by ZMJ on 2018/2/1.
  */
 public class ThriftInvocationHandler implements InvocationHandler {
     private static Logger LOGGER = LoggerFactory.getLogger(ThriftInvocationHandler.class);
